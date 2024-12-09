@@ -1,70 +1,78 @@
-body {
+.app {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
-
-.app-container {
   padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.dark {
-  background-color: #333;
-  color: white;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-button {
-  background-color: #5a67d8;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #434190;
+.header {
+  text-align: center;
 }
 
 .task-input {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
-.task-list {
-  list-style: none;
-  padding: 0;
+.task-input input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.task-input button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
 }
 
-.task-list li {
+.filters button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.task-list {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.task-list .task {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #f9f9f9;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  margin: 10px 0;
 }
 
-.task-list li.completed {
+.task-list .task.completed {
   text-decoration: line-through;
-  background-color: #e0e0e0;
+  color: gray;
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
+.task-list button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.app.dark {
+  background-color: #333;
+  color: white;
+}
+
+.app.light {
+  background-color: white;
+  color: black;
 }
