@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'; // Puedes seguir usando un archivo CSS personalizado si lo necesitas
+import './App.css';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -7,7 +7,6 @@ function App() {
   const [theme, setTheme] = useState('light'); // Tema: 'light' o 'dark'
   const [filter, setFilter] = useState('all'); // Filtro de tareas: 'all', 'completed', 'pending'
 
-  // Cargar las tareas desde LocalStorage al inicio
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem('tasks'));
     if (savedTasks) setTasks(savedTasks);
@@ -15,13 +14,11 @@ function App() {
     if (savedTheme) setTheme(savedTheme);
   }, []);
 
-  // Guardar las tareas y el tema en LocalStorage cuando se actualicen
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('theme', theme);
   }, [tasks, theme]);
 
-  // Función para agregar una nueva tarea
   const addTask = () => {
     if (newTask.trim() === '') return;
     const newTaskObj = { id: Date.now(), text: newTask, completed: false };
@@ -29,7 +26,6 @@ function App() {
     setNewTask('');
   };
 
-  // Función para marcar una tarea como completada
   const toggleTaskCompletion = (taskId) => {
     setTasks(
       tasks.map((task) =>
@@ -38,107 +34,77 @@ function App() {
     );
   };
 
-  // Función para eliminar una tarea
   const deleteTask = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
-  // Función para cambiar el tema (oscuro/claro)
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
   };
 
-  // Filtrar las tareas según el estado (todas, completadas, pendientes)
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'completed') return task.completed;
     if (filter === 'pending') return !task.completed;
-    return true; // 'all' - Mostrar todas las tareas
+    return true;
   });
 
   return (
-    <div className={`min-h-screen content-center ${theme === 'light' ? 'bg-white' : 'bg-gray-800'} transition-colors duration-300`}>
-      <div className="container mx-auto p-4">
-        {/* Botón de cambio de tema */}
-        <button
-          className="mb-4 p-2 bg-blue-500 text-white rounded-md"
-          onClick={toggleTheme}
-        >
-          Cambiar a {theme === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
-        </button>
+    <div className={`app ${theme}`}>
+      <div className="todo-container">
+        <div className="header">
+          <h1>TODO LIST</h1>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+        </div>
 
-        {/* Título */}
-        <h1 className={`text-3xl font-bold text-center ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          Lista de Tareas
-        </h1>
-
-        {/* Input para agregar nuevas tareas */}
-        <div className="flex mb-4">
+        <div className="task-input">
           <input
             type="text"
-            className="p-2 flex-1 border border-gray-300 rounded-l-md"
-            placeholder="Nueva tarea"
+            placeholder="Search or add a task..."
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
           />
-          <button
-            className="p-2 bg-blue-500 text-white rounded-r-md"
-            onClick={addTask}
-          >
-            Agregar
-          </button>
+          <button onClick={addTask}>+</button>
         </div>
 
-        {/* Filtros */}
-        <div className="mb-4 text-center">
+        <div className="filters">
           <button
-            className="mx-2 p-2 bg-gray-200 rounded-md"
+            className={filter === 'all' ? 'active' : ''}
             onClick={() => setFilter('all')}
           >
-            Todas
+            ALL
           </button>
           <button
-            className="mx-2 p-2 bg-gray-200 rounded-md"
+            className={filter === 'completed' ? 'active' : ''}
             onClick={() => setFilter('completed')}
           >
-            Completadas
+            COMPLETED
           </button>
           <button
-            className="mx-2 p-2 bg-gray-200 rounded-md"
+            className={filter === 'pending' ? 'active' : ''}
             onClick={() => setFilter('pending')}
           >
-            Pendientes
+            PENDING
           </button>
         </div>
 
-        {/* Lista de tareas */}
-        <ul>
+        <ul className="task-list">
           {filteredTasks.map((task) => (
             <li
               key={task.id}
-              className={`flex items-center justify-between p-3 mb-2 rounded-md ${
-                task.completed
-                  ? 'bg-green-100 text-green-800'
-                  : 'bg-gray-100 text-gray-800'
-              }`}
+              className={task.completed ? 'completed' : 'pending'}
             >
-              <div className="flex items-center">
+              <div>
                 <input
                   type="checkbox"
                   checked={task.completed}
                   onChange={() => toggleTaskCompletion(task.id)}
-                  className="mr-3"
                 />
-                <span className={task.completed ? 'line-through' : ''}>
-                  {task.text}
-                </span>
+                <span>{task.text}</span>
               </div>
-              <button
-                className="text-red-500"
-                onClick={() => deleteTask(task.id)}
-              >
-                Eliminar
-              </button>
+              <button onClick={() => deleteTask(task.id)}>❌</button>
             </li>
           ))}
         </ul>

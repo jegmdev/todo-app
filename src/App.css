@@ -1,78 +1,116 @@
-.app {
+body {
+  margin: 0;
   font-family: Arial, sans-serif;
+  transition: background-color 0.3s;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  transition: background-color 0.3s;
+}
+
+.app.light {
+  background-color: #f5f5f5;
+}
+
+.app.dark {
+  background-color: #2c2c2c;
+}
+
+.todo-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 100%;
   padding: 20px;
 }
 
 .header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .task-input {
-  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  margin: 20px 0;
 }
 
 .task-input input {
+  flex: 1;
   padding: 10px;
-  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
 }
 
 .task-input button {
   padding: 10px 15px;
-  margin-left: 10px;
-  background-color: #4CAF50;
+  background: #6c63ff;
   color: white;
   border: none;
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
 }
 
 .filters {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.filters button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
-  cursor: pointer;
-}
-
-.task-list {
-  margin-top: 20px;
-  list-style: none;
-  padding: 0;
-}
-
-.task-list .task {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 10px 0;
 }
 
-.task-list .task.completed {
-  text-decoration: line-through;
-  color: gray;
-}
-
-.task-list button {
-  background-color: red;
-  color: white;
-  border: none;
+.filters button {
   padding: 5px 10px;
+  border: none;
+  background: #f0f0f0;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.app.dark {
-  background-color: #333;
+.filters .active {
+  background: #6c63ff;
   color: white;
 }
 
-.app.light {
-  background-color: white;
-  color: black;
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.task-list li.completed {
+  background: #d1ffd7;
+  text-decoration: line-through;
+}
+
+.task-list li button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
